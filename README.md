@@ -1,4 +1,4 @@
-# 🚀 ClientFlow - Gestor de Clientes (CRUD & JWT)
+#  ClientFlow - Gestor de Clientes (CRUD & JWT)
 
 **ClientFlow** es una aplicación web frontend premium para la gestión y administración de carteras de clientes empresariales. Ha sido desarrollada utilizando **React, TypeScript y Vite**, implementando un diseño de vanguardia con estética *dark mode* y componentes *glassmorphism* (efecto cristal translúcido), logrando una experiencia de usuario sumamente interactiva y libre de dependencias pesadas como TailwindCSS.
 
@@ -6,7 +6,7 @@ La plataforma se conecta de manera asíncrona mediante peticiones seguras con to
 
 ---
 
-## 🧑‍💻 Detalles del Autor y Proyecto
+##  Detalles del Autor y Proyecto
 - **Proyecto:** Práctica Final – Desarrollo de una aplicación frontend con React.
 - **Entidad de Gestión:** `Cliente` (Nombre, Email, Estado [Activo/Inactivo], Teléfono, Empresa y Fecha de Registro).
 - **Autor:** Miguel Ángel.
@@ -14,7 +14,7 @@ La plataforma se conecta de manera asíncrona mediante peticiones seguras con to
 
 ---
 
-## 🛠️ Tecnologías Utilizadas
+##  Tecnologías Utilizadas
 
 - **Core:** React 19 + TypeScript + Vite.
 - **Enrutamiento:** React Router Dom v7 (Control de rutas públicas, privadas y 404).
@@ -24,7 +24,7 @@ La plataforma se conecta de manera asíncrona mediante peticiones seguras con to
 
 ---
 
-## 📡 Arquitectura de Soporte Dual (API Real vs. Mock)
+##  Arquitectura de Soporte Dual (API Real vs. Mock)
 
 Una de las características más avanzadas del proyecto es su selector de backend en tiempo real, visible en la cabecera:
 1. **Modo Local Simulado (Por Defecto):** La aplicación funciona al 100% de manera autónoma de inmediato usando `localStorage` para persistir los clientes creados, modificados o eliminados. Simula latencia de red y validaciones de correos repetidos automáticamente. **¡Ideal para correcciones rápidas sin tocar la terminal!**
@@ -32,7 +32,7 @@ Una de las características más avanzadas del proyecto es su selector de backen
 
 ---
 
-## 🔑 Credenciales de Acceso (Usuario de Prueba)
+##  Credenciales de Acceso (Usuario de Prueba)
 Para iniciar sesión en el panel y ver las rutas privadas, utiliza las siguientes credenciales (compatibles tanto en modo Local como en el Servidor Real):
 
 - **Correo Electrónico:** `admin@example.com`
@@ -42,24 +42,24 @@ Para iniciar sesión en el panel y ver las rutas privadas, utiliza las siguiente
 
 ---
 
-## 🚀 Pasos de Instalación y Arranque
+##  Pasos de Instalación y Arranque
 
-### 📋 Requisitos Previos
+###  Requisitos Previos
 Tener instalado [Node.js](https://nodejs.org/) (versión 18 o superior recomendada).
 
-### 1️⃣ Clonar o Descargar el Proyecto
+### 1️ Clonar o Descargar el Proyecto
 Descomprime el archivo o sitúate en el directorio de trabajo:
 ```bash
 cd Re-DesarrolloCliente
 ```
 
-### 2️⃣ Instalar Dependencias del Proyecto
+### 2️ Instalar Dependencias del Proyecto
 Instala todos los paquetes necesarios del frontend y el servidor de pruebas en un solo comando:
 ```bash
 npm install
 ```
 
-### 3️⃣ Configuración del Entorno (`.env`)
+### 3️ Configuración del Entorno (`.env`)
 En la raíz del proyecto se incluye el archivo `.env` configurado por defecto:
 ```env
 VITE_API_URL=http://localhost:5000/api
@@ -67,7 +67,7 @@ VITE_API_URL=http://localhost:5000/api
 
 ---
 
-## 💻 Instrucciones de Ejecución
+##  Instrucciones de Ejecución
 
 Tienes dos formas de ejecutar e interactuar con la aplicación:
 
@@ -96,11 +96,11 @@ Abre en tu navegador [http://localhost:5173](http://localhost:5173). Cambia el s
 
 ---
 
-## ✅ Checklist de Requisitos Mínimos Cumplidos
+##  Checklist de Requisitos Mínimos Cumplidos
 
 A continuación se detalla la lista de verificación que demuestra la cobertura completa de las directivas de la rúbrica:
 
-### 🔒 Rutas y Autenticación JWT
+###  Rutas y Autenticación JWT
 - [x] **Página Pública de Inicio:** Presentación elegante con explicaciones de valor y enlaces dinámicos (`/`).
 - [x] **Página Pública de Login:** Formulario estilizado con control de estados de envío y validaciones en tiempo real (`/login`).
 - [x] **Almacenamiento del JWT:** Persistencia segura del token y datos del perfil en `localStorage`.
@@ -108,14 +108,14 @@ A continuación se detalla la lista de verificación que demuestra la cobertura 
 - [x] **Cierre de sesión (Logout):** Limpieza completa del token e información de usuario, mostrando una alerta visual.
 - [x] **Página 404:** Interfaz divertida y moderna ante rutas inexistentes con botón de rescate (`*`).
 
-### 📂 Operaciones CRUD (Entidad: Cliente)
+###  Operaciones CRUD (Entidad: Cliente)
 - [x] **Listado de Elementos (GET):** Vista en panel de control estructurada en rejilla con filtros interactivos (`/dashboard`).
 - [x] **Detalle del Elemento (GET):** Ficha detallada del cliente con datos de contacto, organización y fecha de registro (`/clientes/:id`).
 - [x] **Alta de Elemento (POST):** Formulario interactivo con validación de campos obligatorios e email único (`/clientes/nuevo`).
 - [x] **Edición de Elemento (PUT/PATCH):** Formulario pre-cargado que actualiza de manera segura el perfil del cliente (`/clientes/editar/:id`).
 - [x] **Eliminación de Elemento (DELETE):** Acción protegida por un **Modal interactivo** de confirmación de borrado definitivo.
 
-### 🧪 Requisitos Técnicos de React
+###  Requisitos Técnicos de React
 - [x] **React + TypeScript:** Estructura type-safe libre de errores de compilación (`npm run build` verificado con éxito).
 - [x] **React Router v7:** Gestión robusta de rutas públicas, privadas y comodín.
 - [x] **Uso de Hooks:** `useState`, `useEffect`, `useContext`, `useCallback`, `useMemo` y `useParams`.
