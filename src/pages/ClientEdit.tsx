@@ -12,7 +12,6 @@ export const ClientEdit: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { addToast } = useToast();
-  const { useMockBackend } = useAuth();
 
   const [cliente, setCliente] = useState<Cliente | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -38,7 +37,7 @@ export const ClientEdit: React.FC = () => {
     };
 
     fetchClient();
-  }, [id, useMockBackend]);
+  }, [id]);
 
   const handleSubmit = async (formData: Omit<Cliente, 'id' | 'createdAt'>) => {
     if (!id) return;

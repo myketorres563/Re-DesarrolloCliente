@@ -7,13 +7,6 @@
  * Gracias a esto:
  * 1. El token JWT y los datos del usuario logueado no se borran al recargar la página (F5) o cerrar el navegador.
  * 2. Mantiene una preferencia de configuración llamada `use_mock_backend` para recordar si el usuario prefiere probar la app en modo local simulado (sin backend encendido) o usar el servidor API HTTP real.
- * 
- * ¿DESDE DÓNDE SE LLAMA / CÓMO SE CONECTA?
- * - Es importado por "src/auth/authContext.tsx" para sincronizar la sesión al iniciar la aplicación.
- * - Es importado por "src/services/clientService.ts" para obtener el token JWT e inyectarlo en la cabecera `Authorization` de las peticiones HTTP.
- * 
- * ¿DÓNDE SE PUEDE MODIFICAR?
- * - Si quieres cambiar las claves o nombres con los que se guardan los datos en el navegador (ej. cambiar 'auth_token' por 'mi_proyecto_token').
  */
 
 import type { User } from '../types';

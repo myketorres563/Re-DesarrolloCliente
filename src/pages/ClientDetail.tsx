@@ -11,7 +11,6 @@ export const ClientDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { addToast } = useToast();
-  const { useMockBackend } = useAuth();
 
   const [cliente, setCliente] = useState<Cliente | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -35,7 +34,7 @@ export const ClientDetail: React.FC = () => {
     };
 
     fetchClientDetail();
-  }, [id, useMockBackend]);
+  }, [id]);
 
   const formatDate = (dateString?: string) => {
     if (!dateString) return 'No disponible';

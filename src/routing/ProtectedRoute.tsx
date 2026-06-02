@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../auth/authContext'; // Consumimos el contexto global de sesión
+import { useAuth } from '../auth/authContext'; // Consumimos la sesión
 
 interface ProtectedRouteProps {
   children: React.ReactNode; // Los componentes de la página protegida que queremos mostrar

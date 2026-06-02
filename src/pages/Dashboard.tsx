@@ -11,7 +11,6 @@ import { Plus, Search, Filter, AlertCircle, RefreshCw, FolderOpen } from 'lucide
 
 export const Dashboard: React.FC = () => {
   const { addToast } = useToast();
-  const { useMockBackend } = useAuth();
   
   // === ESTADOS REACTIVOS ===
   const [clients, setClients] = useState<Cliente[]>([]); // Array original completo descargado del servidor
@@ -43,10 +42,10 @@ export const Dashboard: React.FC = () => {
     }
   };
 
-  // Vuelve a consultar la base de datos si el estudiante cambia entre "Mock" y "API Real" en la barra superior
+  // Realiza la carga inicial de los clientes
   useEffect(() => {
     fetchClients();
-  }, [useMockBackend]); 
+  }, []); 
 
   // === RENDIMIENTO: FILTRADO REACTIVO EN MEMORIA (useMemo) ===
   /**

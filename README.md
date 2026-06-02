@@ -9,7 +9,7 @@ La plataforma se conecta de manera asíncrona mediante peticiones seguras con to
 ##  Detalles del Autor y Proyecto
 - **Proyecto:** Práctica Final – Desarrollo de una aplicación frontend con React.
 - **Entidad de Gestión:** `Cliente` (Nombre, Email, Estado [Activo/Inactivo], Teléfono, Empresa y Fecha de Registro).
-- **Autor:** Miguel Ángel.
+- **Autor:** Miguel Torres.
 - **Entorno de Ejecución:** Windows + Node.js (Vite Dev Server).
 
 ---
@@ -26,8 +26,8 @@ La plataforma se conecta de manera asíncrona mediante peticiones seguras con to
 
 ##  Arquitectura de Soporte Dual (API Real vs. Mock)
 
-Una de las características más avanzadas del proyecto es su selector de backend en tiempo real, visible en la cabecera:
-1. **Modo Local Simulado (Por Defecto):** La aplicación funciona al 100% de manera autónoma de inmediato usando `localStorage` para persistir los clientes creados, modificados o eliminados. Simula latencia de red y validaciones de correos repetidos automáticamente. **¡Ideal para correcciones rápidas sin tocar la terminal!**
+El proyecto cuenta con una arquitectura de persistencia flexible que soporta dos modos de funcionamiento:
+1. **Modo Local Simulado (Por Defecto):** La aplicación funciona al 100% de manera autónoma de inmediato usando `localStorage` para persistir los clientes creados, modificados o eliminados. Simula latencia de red y validaciones de correos repetidos automáticamente. **¡Ideal para presentar la aplicación sin necesidad de configurar y encender bases de datos o servidores externos!**
 2. **Modo API Real:** La aplicación realiza peticiones asíncronas de red mediante `fetch` al servidor REST local configurado en el archivo `.env`. Adjunta de manera segura el JWT en la cabecera `Authorization: Bearer <token>` para todas las peticiones privadas.
 
 ---
@@ -77,7 +77,7 @@ Esta opción **no requiere** iniciar ningún servidor de base de datos o backend
 # Iniciar el servidor de desarrollo de Vite
 npm run dev
 ```
-Abre en tu navegador [http://localhost:5173](http://localhost:5173). Asegúrate de que el selector de la esquina superior derecha de la cabecera marque **"Local"** (se activa automáticamente). ¡Prueba a crear, editar, filtrar y eliminar clientes!
+Abre en tu navegador [http://localhost:5173](http://localhost:5173). La aplicación funcionará de manera local simulada por defecto. ¡Prueba a crear, editar, filtrar y eliminar clientes!
 
 ### Opción B: Ejecutar Frontend + Backend REST Real
 Si deseas evaluar la comunicación asíncrona real a través del protocolo HTTP, abre dos terminales:
@@ -92,7 +92,7 @@ npm run server
 ```bash
 npm run dev
 ```
-Abre en tu navegador [http://localhost:5173](http://localhost:5173). Cambia el selector en la esquina superior derecha a **"API Real"**. Verás cómo la aplicación se comunica de forma asíncrona y fluida con el servidor de Node, protegiendo las peticiones con JWT.
+Abre en tu navegador [http://localhost:5173](http://localhost:5173). Para activar la comunicación con la API Real de Node, puedes configurar la clave `use_mock_backend` a `"false"` en el `localStorage` de tu navegador, y verás cómo la aplicación se comunica asíncronamente con el servidor protegiendo las llamadas con JWT.
 
 ---
 

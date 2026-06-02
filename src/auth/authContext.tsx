@@ -9,8 +9,6 @@ interface AuthContextType {
   token: string | null; // El token de sesión JWT (o null)
   isAuthenticated: boolean; // Flag de acceso rápido (true/false)
   loading: boolean; // Flag para congelar la app mientras lee localStorage al inicio
-  useMockBackend: boolean; // Flag para saber si simulamos el backend localmente o usamos el de verdad
-  setUseMockBackend: (useMock: boolean) => void; // Función para alternar el flag anterior
   login: (email: string, password: string) => Promise<boolean>; // Función de inicio de sesión
   logout: () => void; // Función de cierre de sesión
 }
@@ -29,25 +27,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     isAuthenticated: false,
     loading: true, // Empieza en true para dar tiempo a cargar el localStorage
   });
-
-  // Estado para controlar si usamos la base de datos simulada en localStorage
-  const [useMockBackend, _setUseMockBackend] = useState<boolean>(() => {
-    return authStorage.getUseMockBackend();
-  });
-
-  // Función para alternar entre el servidor real y el backend simulado
-  const setUseMockBackend = (useMock: boolean) => {
-    authStorage.setUseMockBackend(useMock);
-    _setUseMockBackend(useMock);
-    
-    // Mostramos una alerta en pantalla informando del cambio
-    addToast(
-      useMock 
-        ? 'Backend cambiado a: Local Simulado (Sin servidor)' 
-        : 'Backend cambiado a: API REST Real (http://localhost:5000)',
-      'info'
-    );
-  };
 
   // === EFECTO DE AUTO-LOGUEO AL INICIAR LA APLICACIÓN ===
   useEffect(() => {
@@ -75,8 +54,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setState((prev) => ({ ...prev, loading: true })); // Activamos la rueda de carga del botón
     
     try {
+      const isMock = authStorage.getUseMockBackend();
       // --- CASO A: MODO LOCAL SIMULADO (MOCK) ---
-      if (useMockBackend) {
+      if (isMock) {
         // Simulamos un retraso de red de 800 milisegundos para que se vea más realista
         await new Promise((resolve) => setTimeout(resolve, 800));
 
@@ -174,8 +154,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         token: state.token,
         isAuthenticated: state.isAuthenticated,
         loading: state.loading,
-        useMockBackend,
-        setUseMockBackend,
         login,
         logout,
       }}
