@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { useToast } from '../context/ToastContext';
-import { Input } from '../components/ui/Input';
-import { Button } from '../components/ui/Button';
+import { useAuth } from '../auth/authContext';
+import { useToast } from '../components/ToastContext';
+import { Input } from '../components/Input';
+import { Button } from '../components/Button';
 import { Lock, LogIn, KeyRound } from 'lucide-react';
 
 export const Login: React.FC = () => {
@@ -64,39 +64,21 @@ export const Login: React.FC = () => {
   };
 
   return (
-    <div className="animate-fade-in" style={{ display: 'flex', justifyContent: 'center', padding: '40px 0' }}>
-      <div 
-        className="glass-card" 
-        style={{ 
-          width: '100%', 
-          maxWidth: '420px', 
-          padding: '36px',
-          boxShadow: 'var(--shadow-lg)',
-          borderRadius: 'var(--border-radius-md)'
-        }}
-      >
+    <div className="animate-fade-in login-wrapper">
+      <div className="glass-card login-card">
         {/* Cabecera del Formulario */}
-        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <div
-            style={{
-              display: 'inline-flex',
-              padding: '12px',
-              borderRadius: '50%',
-              backgroundColor: 'rgba(99, 102, 241, 0.1)',
-              color: 'var(--color-primary)',
-              marginBottom: '16px',
-            }}
-          >
+        <div className="login-header">
+          <div className="login-header-icon-wrapper">
             <Lock size={28} />
           </div>
-          <h2 style={{ fontSize: '1.75rem', fontWeight: 700, marginBottom: '8px' }}>Iniciar Sesión</h2>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
+          <h2 className="login-header-title">Iniciar Sesión</h2>
+          <p className="login-header-desc">
             Accede de forma segura a la gestión de clientes
           </p>
         </div>
 
         {/* Formulario */}
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <form onSubmit={handleSubmit} className="login-form">
           
           <Input
             label="Correo Electrónico"
@@ -131,7 +113,7 @@ export const Login: React.FC = () => {
           <Button
             type="submit"
             variant="primary"
-            style={{ width: '100%', marginTop: '16px', display: 'flex', alignItems: 'center', gap: '8px' }}
+            className="login-submit-btn"
             isLoading={isSubmitting}
           >
             <LogIn size={18} />
@@ -140,35 +122,18 @@ export const Login: React.FC = () => {
         </form>
 
         {/* Tarjeta de Demo Credenciales */}
-        <div
-          style={{
-            marginTop: '24px',
-            padding: '14px 18px',
-            backgroundColor: 'rgba(245, 158, 11, 0.08)',
-            border: '1px dashed rgba(245, 158, 11, 0.3)',
-            borderRadius: 'var(--border-radius-sm)',
-            textAlign: 'center',
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', justifyContent: 'center', marginBottom: '8px', color: 'var(--color-warning)', fontWeight: 600, fontSize: '0.85rem' }}>
+        <div className="login-demo-box">
+          <div className="login-demo-title">
             <KeyRound size={14} />
             Credenciales de Prueba
           </div>
-          <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginBottom: '10px', lineHeight: 1.4 }}>
+          <p className="login-demo-desc">
             Email: <strong>admin@example.com</strong><br />
             Contraseña: <strong>admin</strong>
           </p>
           <button
             onClick={handleFillDemo}
-            style={{
-              fontSize: '0.8rem',
-              color: 'var(--color-warning)',
-              fontWeight: 600,
-              textDecoration: 'underline',
-              cursor: 'pointer',
-              background: 'none',
-              border: 'none',
-            }}
+            className="login-demo-btn"
           >
             Rellenar automáticamente
           </button>

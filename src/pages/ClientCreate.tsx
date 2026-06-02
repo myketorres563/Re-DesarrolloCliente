@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { clientService } from '../services/clientService';
-import { useToast } from '../context/ToastContext';
-import { ClientForm } from '../components/clients/ClientForm';
+import { useToast } from '../components/ToastContext';
+import { ClientForm } from '../components/ClientForm';
 import type { Cliente } from '../types';
 import { ArrowLeft, UserPlus } from 'lucide-react';
 
@@ -26,46 +26,27 @@ export const ClientCreate: React.FC = () => {
   };
 
   return (
-    <div className="animate-fade-in" style={{ maxWidth: '600px', margin: '0 auto' }}>
+    <div className="animate-fade-in client-crud-wrapper">
       
       {/* Retorno */}
       <Link
         to="/dashboard"
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '8px',
-          color: 'var(--text-secondary)',
-          fontSize: '0.9rem',
-          marginBottom: '24px',
-          fontWeight: 500,
-          transition: 'color var(--transition-fast)'
-        }}
-        onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary)'}
-        onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
+        className="client-crud-back-link"
       >
         <ArrowLeft size={16} />
         Volver al Panel
       </Link>
 
       {/* Título de la página */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '28px' }}>
-        <div
-          style={{
-            padding: '10px',
-            borderRadius: 'var(--border-radius-sm)',
-            backgroundColor: 'rgba(99, 102, 241, 0.1)',
-            color: 'var(--color-primary)',
-            display: 'flex',
-          }}
-        >
+      <div className="client-crud-header">
+        <div className="client-crud-icon-wrapper client-crud-icon-create">
           <UserPlus size={22} />
         </div>
         <div>
-          <h2 style={{ fontSize: '1.75rem', fontWeight: 700, letterSpacing: '-0.02em' }}>
+          <h2 className="client-crud-title">
             Alta de Cliente
           </h2>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginTop: '2px' }}>
+          <p className="client-crud-desc">
             Completa los datos para incorporar un nuevo cliente a la base de datos.
           </p>
         </div>

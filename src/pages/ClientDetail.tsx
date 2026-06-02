@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import type { Cliente } from '../types';
 import { clientService } from '../services/clientService';
-import { useToast } from '../context/ToastContext';
-import { useAuth } from '../context/AuthContext';
-import { Button } from '../components/ui/Button';
+import { useToast } from '../components/ToastContext';
+import { useAuth } from '../auth/authContext';
+import { Button } from '../components/Button';
 import { ArrowLeft, Edit2, Mail, Phone, Building, Calendar, UserCheck, ShieldAlert } from 'lucide-react';
 
 export const ClientDetail: React.FC = () => {
@@ -50,23 +50,12 @@ export const ClientDetail: React.FC = () => {
   };
 
   return (
-    <div className="animate-fade-in" style={{ maxWidth: '750px', margin: '0 auto' }}>
+    <div className="animate-fade-in client-detail-wrapper">
       
       {/* Botón de retorno */}
       <Link
         to="/dashboard"
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '8px',
-          color: 'var(--text-secondary)',
-          fontSize: '0.9rem',
-          marginBottom: '24px',
-          fontWeight: 500,
-          transition: 'color var(--transition-fast)'
-        }}
-        onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary)'}
-        onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
+        className="client-detail-back-link"
       >
         <ArrowLeft size={16} />
         Volver al Panel de Control
@@ -76,26 +65,15 @@ export const ClientDetail: React.FC = () => {
       {isLoading ? (
         <div className="loader-container">
           <div className="spinner"></div>
-          <p style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>
+          <p className="dashboard-loading-text">
             Obteniendo ficha de cliente...
           </p>
         </div>
       ) : error ? (
-        <div
-          className="glass-card"
-          style={{
-            textAlign: 'center',
-            padding: '40px',
-            border: '1px solid rgba(239, 68, 68, 0.2)',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '16px',
-          }}
-        >
+        <div className="glass-card dashboard-error-card">
           <ShieldAlert size={48} color="var(--color-danger)" />
-          <h3 style={{ fontSize: '1.25rem', fontWeight: 600 }}>Error al cargar</h3>
-          <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+          <h3 className="dashboard-error-title">Error al cargar</h3>
+          <p className="dashboard-error-desc">
             {error}
           </p>
           <Button variant="secondary" onClick={() => navigate('/dashboard')}>
@@ -103,130 +81,82 @@ export const ClientDetail: React.FC = () => {
           </Button>
         </div>
       ) : cliente ? (
-        <div className="glass-card" style={{ padding: '36px' }}>
+        <div className="glass-card client-detail-card">
           
           {/* Cabecera del Detalle */}
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-              borderBottom: '1px solid var(--border-color)',
-              paddingBottom: '24px',
-              marginBottom: '28px',
-              flexWrap: 'wrap',
-              gap: '16px'
-            }}
-          >
+          <div className="client-detail-header">
             <div>
-              <span 
-                className={`badge ${cliente.estado === 'activo' ? 'badge-active' : 'badge-inactive'}`}
-                style={{ marginBottom: '12px' }}
-              >
+              <span className={`badge ${cliente.estado === 'activo' ? 'badge-active' : 'badge-inactive'} client-detail-badge`}>
                 {cliente.estado}
               </span>
-              <h2 style={{ fontSize: '1.8rem', fontWeight: 700, letterSpacing: '-0.02em' }}>
+              <h2 className="client-detail-title">
                 {cliente.nombre}
               </h2>
             </div>
 
-            <Link to={`/clientes/editar/${cliente.id}`} className="btn btn-secondary" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <Edit2 size={16} style={{ color: 'var(--color-warning)' }} />
+            <Link to={`/clientes/editar/${cliente.id}`} className="btn btn-secondary client-detail-edit-btn">
+              <Edit2 size={16} className="client-card-btn-edit" />
               Editar Ficha
             </Link>
           </div>
 
           {/* Grid de atributos */}
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-              gap: '24px',
-            }}
-          >
+          <div className="client-detail-grid">
             {/* Correo Electrónico */}
-            <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
-              <div
-                style={{
-                  padding: '10px',
-                  borderRadius: 'var(--border-radius-sm)',
-                  backgroundColor: 'rgba(99, 102, 241, 0.08)',
-                  color: 'var(--color-primary)',
-                }}
-              >
+            <div className="client-detail-item">
+              <div className="client-detail-icon-wrapper">
                 <Mail size={20} />
               </div>
               <div>
-                <span style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600, marginBottom: '4px' }}>
+                <span className="client-detail-label">
                   Correo Electrónico
                 </span>
-                <span style={{ fontSize: '0.95rem', fontWeight: 500, color: 'var(--text-primary)' }}>
+                <span className="client-detail-value">
                   {cliente.email}
                 </span>
               </div>
             </div>
 
             {/* Teléfono */}
-            <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
-              <div
-                style={{
-                  padding: '10px',
-                  borderRadius: 'var(--border-radius-sm)',
-                  backgroundColor: 'rgba(99, 102, 241, 0.08)',
-                  color: 'var(--color-primary)',
-                }}
-              >
+            <div className="client-detail-item">
+              <div className="client-detail-icon-wrapper">
                 <Phone size={20} />
               </div>
               <div>
-                <span style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600, marginBottom: '4px' }}>
+                <span className="client-detail-label">
                   Teléfono de Contacto
                 </span>
-                <span style={{ fontSize: '0.95rem', fontWeight: 500, color: cliente.telefono ? 'var(--text-primary)' : 'var(--text-muted)' }}>
+                <span className={`client-detail-value ${cliente.telefono ? '' : 'muted'}`}>
                   {cliente.telefono || 'Sin registrar'}
                 </span>
               </div>
             </div>
 
             {/* Empresa */}
-            <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
-              <div
-                style={{
-                  padding: '10px',
-                  borderRadius: 'var(--border-radius-sm)',
-                  backgroundColor: 'rgba(99, 102, 241, 0.08)',
-                  color: 'var(--color-primary)',
-                }}
-              >
+            <div className="client-detail-item">
+              <div className="client-detail-icon-wrapper">
                 <Building size={20} />
               </div>
               <div>
-                <span style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600, marginBottom: '4px' }}>
+                <span className="client-detail-label">
                   Organización / Empresa
                 </span>
-                <span style={{ fontSize: '0.95rem', fontWeight: 500, color: cliente.empresa ? 'var(--text-primary)' : 'var(--text-muted)' }}>
+                <span className={`client-detail-value ${cliente.empresa ? '' : 'muted'}`}>
                   {cliente.empresa || 'Sin registrar'}
                 </span>
               </div>
             </div>
 
             {/* Fecha de Registro */}
-            <div style={{ display: 'flex', gap: '14px', alignItems: 'flex-start' }}>
-              <div
-                style={{
-                  padding: '10px',
-                  borderRadius: 'var(--border-radius-sm)',
-                  backgroundColor: 'rgba(99, 102, 241, 0.08)',
-                  color: 'var(--color-primary)',
-                }}
-              >
+            <div className="client-detail-item">
+              <div className="client-detail-icon-wrapper">
                 <Calendar size={20} />
               </div>
               <div>
-                <span style={{ display: 'block', fontSize: '0.8rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em', fontWeight: 600, marginBottom: '4px' }}>
+                <span className="client-detail-label">
                   Fecha de Alta
                 </span>
-                <span style={{ fontSize: '0.95rem', fontWeight: 500, color: 'var(--text-primary)' }}>
+                <span className="client-detail-value">
                   {formatDate(cliente.createdAt)}
                 </span>
               </div>
@@ -234,20 +164,9 @@ export const ClientDetail: React.FC = () => {
           </div>
 
           {/* Información Adicional Premium */}
-          <div
-            style={{
-              marginTop: '36px',
-              padding: '20px',
-              backgroundColor: 'rgba(255, 255, 255, 0.02)',
-              border: '1px solid var(--border-color)',
-              borderRadius: 'var(--border-radius-sm)',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '14px',
-            }}
-          >
-            <UserCheck size={20} style={{ color: 'var(--color-success)', flexShrink: 0 }} />
-            <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+          <div className="client-detail-audit-box">
+            <UserCheck size={20} className="client-detail-audit-icon" />
+            <p className="client-detail-audit-text">
               Este cliente está registrado en el sistema bajo directivas de seguridad asíncrona. Cualquier cambio sobre su perfil auditará los logs del JWT actual del administrador de manera encriptada.
             </p>
           </div>
@@ -257,3 +176,6 @@ export const ClientDetail: React.FC = () => {
     </div>
   );
 };
+
+
+

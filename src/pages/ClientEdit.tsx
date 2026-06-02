@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { clientService } from '../services/clientService';
-import { useToast } from '../context/ToastContext';
-import { useAuth } from '../context/AuthContext';
-import { ClientForm } from '../components/clients/ClientForm';
+import { useToast } from '../components/ToastContext';
+import { useAuth } from '../auth/authContext';
+import { ClientForm } from '../components/ClientForm';
 import type { Cliente } from '../types';
 import { ArrowLeft, UserCheck, ShieldAlert } from 'lucide-react';
-import { Button } from '../components/ui/Button';
+import { Button } from '../components/Button';
 
 export const ClientEdit: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -56,46 +56,27 @@ export const ClientEdit: React.FC = () => {
   };
 
   return (
-    <div className="animate-fade-in" style={{ maxWidth: '600px', margin: '0 auto' }}>
+    <div className="animate-fade-in client-crud-wrapper">
       
       {/* Retorno */}
       <Link
         to={id ? `/clientes/${id}` : '/dashboard'}
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: '8px',
-          color: 'var(--text-secondary)',
-          fontSize: '0.9rem',
-          marginBottom: '24px',
-          fontWeight: 500,
-          transition: 'color var(--transition-fast)'
-        }}
-        onMouseEnter={(e) => e.currentTarget.style.color = 'var(--text-primary)'}
-        onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
+        className="client-crud-back-link"
       >
         <ArrowLeft size={16} />
         Volver a la Ficha
       </Link>
 
       {/* Título de la página */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '28px' }}>
-        <div
-          style={{
-            padding: '10px',
-            borderRadius: 'var(--border-radius-sm)',
-            backgroundColor: 'rgba(245, 158, 11, 0.12)',
-            color: 'var(--color-warning)',
-            display: 'flex',
-          }}
-        >
+      <div className="client-crud-header">
+        <div className="client-crud-icon-wrapper client-crud-icon-edit">
           <UserCheck size={22} />
         </div>
         <div>
-          <h2 style={{ fontSize: '1.75rem', fontWeight: 700, letterSpacing: '-0.02em' }}>
+          <h2 className="client-crud-title">
             Editar Cliente
           </h2>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginTop: '2px' }}>
+          <p className="client-crud-desc">
             Modifica la ficha de datos y estado del cliente.
           </p>
         </div>
@@ -105,26 +86,15 @@ export const ClientEdit: React.FC = () => {
       {isLoading ? (
         <div className="loader-container">
           <div className="spinner"></div>
-          <p style={{ color: 'var(--text-secondary)', fontWeight: 500 }}>
+          <p className="dashboard-loading-text">
             Obteniendo ficha editable...
           </p>
         </div>
       ) : error ? (
-        <div
-          className="glass-card"
-          style={{
-            textAlign: 'center',
-            padding: '40px',
-            border: '1px solid rgba(239, 68, 68, 0.2)',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '16px',
-          }}
-        >
+        <div className="glass-card dashboard-error-card">
           <ShieldAlert size={48} color="var(--color-danger)" />
-          <h3 style={{ fontSize: '1.25rem', fontWeight: 600 }}>Error al cargar</h3>
-          <p style={{ color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+          <h3 className="dashboard-error-title">Error al cargar</h3>
+          <p className="dashboard-error-desc">
             {error}
           </p>
           <Button variant="secondary" onClick={() => navigate('/dashboard')}>
