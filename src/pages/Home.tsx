@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../auth/authContext';
-import { Shield, Zap, ArrowRight, Layers } from 'lucide-react';
+import { Shield, ArrowRight, Layers, Sparkles } from 'lucide-react';
 
 export const Home: React.FC = () => {
   const { isAuthenticated } = useAuth();
@@ -61,14 +61,14 @@ export const Home: React.FC = () => {
           </p>
         </div>
 
-        {/* Card 3: Dual Mode */}
+        {/* Card 3: Diseño de Vanguardia */}
         <div className="glass-card home-feature-card">
           <div className="home-feature-icon-wrapper home-feature-icon-dual">
-            <Zap size={24} />
+            <Sparkles size={24} />
           </div>
-          <h3 className="home-feature-title-text">Soporte Dual de API</h3>
+          <h3 className="home-feature-title-text">Diseño de Vanguardia</h3>
           <p className="home-feature-desc">
-            Soporta tanto un almacenamiento simulado interactivo en local para pruebas rápidas como comunicación HTTP asíncrona real con un servidor de forma automática.
+            Estética premium en modo oscuro con componentes de cristal esmerilado (glassmorphism), tipografía refinada y micro-animaciones fluidas en CSS nativo.
           </p>
         </div>
       </div>
