@@ -1,12 +1,12 @@
-#  ClientFlow - Gestor de Clientes (CRUD & JWT)
+# 🚀 ClientFlow - Gestor de Clientes (CRUD & JWT)
 
 **ClientFlow** es una aplicación web frontend premium para la gestión y administración de carteras de clientes empresariales. Ha sido desarrollada utilizando **React, TypeScript y Vite**, implementando un diseño de vanguardia con estética *dark mode* y componentes *glassmorphism* (efecto cristal translúcido), logrando una experiencia de usuario sumamente interactiva y libre de dependencias pesadas como TailwindCSS.
 
-La plataforma se conecta de manera asíncrona mediante peticiones seguras con tokens de sesión **JWT** (JSON Web Token) a una API REST y cuenta con un sistema de **Soporte Dual** que permite simular peticiones con latencia directamente en el navegador si no hay un servidor encendido.
+La plataforma se conecta de manera asíncrona mediante peticiones HTTP seguras con tokens de sesión **JWT** (JSON Web Token) a una API REST local.
 
 ---
 
-##  Detalles del Autor y Proyecto
+## 👨‍💻 Detalles del Autor y Proyecto
 - **Proyecto:** Práctica Final – Desarrollo de una aplicación frontend con React.
 - **Entidad de Gestión:** `Cliente` (Nombre, Email, Estado [Activo/Inactivo], Teléfono, Empresa y Fecha de Registro).
 - **Autor:** Miguel Torres.
@@ -14,26 +14,26 @@ La plataforma se conecta de manera asíncrona mediante peticiones seguras con to
 
 ---
 
-##  Tecnologías Utilizadas
+## 🛠️ Tecnologías Utilizadas
 
 - **Core:** React 19 + TypeScript + Vite.
 - **Enrutamiento:** React Router Dom v7 (Control de rutas públicas, privadas y 404).
 - **Estilos:** CSS Vanilla (Sistema de diseño basado en variables HSL/Hex customizables, Blur de fondo y micro-animaciones en botones/inputs/tarjetas).
 - **Iconografía:** Lucide React (Vectores nítidos y elegantes).
-- **Backend Mock:** Express (Node.js) con soporte CORS para simular el servidor real.
+- **Backend:** Express (Node.js) con soporte CORS y base de datos en memoria para servir la API REST.
 
 ---
 
-##  Arquitectura de Soporte Dual (API Real vs. Mock)
+## 📐 Arquitectura del Proyecto (Cliente-Servidor)
 
-El proyecto cuenta con una arquitectura de persistencia flexible que soporta dos modos de funcionamiento:
-1. **Modo Local Simulado (Por Defecto):** La aplicación funciona al 100% de manera autónoma de inmediato usando `localStorage` para persistir los clientes creados, modificados o eliminados. Simula latencia de red y validaciones de correos repetidos automáticamente. **¡Ideal para presentar la aplicación sin necesidad de configurar y encender bases de datos o servidores externos!**
-2. **Modo API Real:** La aplicación realiza peticiones asíncronas de red mediante `fetch` al servidor REST local configurado en el archivo `.env`. Adjunta de manera segura el JWT en la cabecera `Authorization: Bearer <token>` para todas las peticiones privadas.
+La aplicación web funciona bajo un esquema cliente-servidor clásico:
+- **Frontend (React + Vite):** Realiza peticiones asíncronas de red mediante `fetch` al servidor REST local. Adjunta de manera segura el JWT en la cabecera `Authorization: Bearer <token>` para todas las peticiones a rutas y recursos protegidos.
+- **Backend (Express):** API REST local que procesa las peticiones de inicio de sesión, valida la firma del token JWT mediante middlewares de seguridad, y gestiona una base de datos en memoria para la entidad `Cliente`.
 
 ---
 
-##  Credenciales de Acceso (Usuario de Prueba)
-Para iniciar sesión en el panel y ver las rutas privadas, utiliza las siguientes credenciales (compatibles tanto en modo Local como en el Servidor Real):
+## 🔑 Credenciales de Acceso (Usuario de Prueba)
+Para iniciar sesión en el panel y ver las rutas privadas, utiliza las siguientes credenciales:
 
 - **Correo Electrónico:** `admin@example.com`
 - **Contraseña:** `admin`
@@ -42,24 +42,24 @@ Para iniciar sesión en el panel y ver las rutas privadas, utiliza las siguiente
 
 ---
 
-##  Pasos de Instalación y Arranque
+## 📦 Pasos de Instalación y Arranque
 
-###  Requisitos Previos
+### Requisitos Previos
 Tener instalado [Node.js](https://nodejs.org/) (versión 18 o superior recomendada).
 
-### 1️ Clonar o Descargar el Proyecto
+### 1️⃣ Clonar o Descargar el Proyecto
 Descomprime el archivo o sitúate en el directorio de trabajo:
 ```bash
 cd Re-DesarrolloCliente
 ```
 
-### 2️ Instalar Dependencias del Proyecto
-Instala todos los paquetes necesarios del frontend y el servidor de pruebas en un solo comando:
+### 2️⃣ Instalar Dependencias del Proyecto
+Instala todos los paquetes necesarios del frontend y el servidor en un solo comando:
 ```bash
 npm install
 ```
 
-### 3️ Configuración del Entorno (`.env`)
+### 3️⃣ Configuración del Entorno (`.env`)
 En la raíz del proyecto se incluye el archivo `.env` configurado por defecto:
 ```env
 VITE_API_URL=http://localhost:5000/api
@@ -67,20 +67,9 @@ VITE_API_URL=http://localhost:5000/api
 
 ---
 
-##  Instrucciones de Ejecución
+## 🚀 Instrucciones de Ejecución
 
-Tienes dos formas de ejecutar e interactuar con la aplicación:
-
-### Opción A: Ejecutar SOLO el Frontend (Modo Local con Mock) - *Recomendado para pruebas inmediatas*
-Esta opción **no requiere** iniciar ningún servidor de base de datos o backend en otra terminal.
-```bash
-# Iniciar el servidor de desarrollo de Vite
-npm run dev
-```
-Abre en tu navegador [http://localhost:5173](http://localhost:5173). La aplicación funcionará de manera local simulada por defecto. ¡Prueba a crear, editar, filtrar y eliminar clientes!
-
-### Opción B: Ejecutar Frontend + Backend REST Real
-Si deseas evaluar la comunicación asíncrona real a través del protocolo HTTP, abre dos terminales:
+Para iniciar la aplicación, abre dos terminales separadas para arrancar simultáneamente el backend y el frontend:
 
 **Terminal 1 (Backend Express REST):**
 ```bash
@@ -92,15 +81,17 @@ npm run server
 ```bash
 npm run dev
 ```
-Abre en tu navegador [http://localhost:5173](http://localhost:5173). Para activar la comunicación con la API Real de Node, puedes configurar la clave `use_mock_backend` a `"false"` en el `localStorage` de tu navegador, y verás cómo la aplicación se comunica asíncronamente con el servidor protegiendo las llamadas con JWT.
+*Esto iniciará el servidor de desarrollo de Vite.*
+
+Abre en tu navegador [http://localhost:5173](http://localhost:5173) para interactuar con la aplicación. Al realizar acciones en el panel de control (crear, obtener, editar o eliminar clientes), verás reflejados los logs de las peticiones HTTP y la validación del JWT en la terminal del backend.
 
 ---
 
-##  Checklist de Requisitos Mínimos Cumplidos
+## 📋 Checklist de Requisitos Mínimos Cumplidos
 
 A continuación se detalla la lista de verificación que demuestra la cobertura completa de las directivas de la rúbrica:
 
-###  Rutas y Autenticación JWT
+### 🔐 Rutas y Autenticación JWT
 - [x] **Página Pública de Inicio:** Presentación elegante con explicaciones de valor y enlaces dinámicos (`/`).
 - [x] **Página Pública de Login:** Formulario estilizado con control de estados de envío y validaciones en tiempo real (`/login`).
 - [x] **Almacenamiento del JWT:** Persistencia segura del token y datos del perfil en `localStorage`.
@@ -108,14 +99,14 @@ A continuación se detalla la lista de verificación que demuestra la cobertura 
 - [x] **Cierre de sesión (Logout):** Limpieza completa del token e información de usuario, mostrando una alerta visual.
 - [x] **Página 404:** Interfaz divertida y moderna ante rutas inexistentes con botón de rescate (`*`).
 
-###  Operaciones CRUD (Entidad: Cliente)
+### 💼 Operaciones CRUD (Entidad: Cliente)
 - [x] **Listado de Elementos (GET):** Vista en panel de control estructurada en rejilla con filtros interactivos (`/dashboard`).
 - [x] **Detalle del Elemento (GET):** Ficha detallada del cliente con datos de contacto, organización y fecha de registro (`/clientes/:id`).
 - [x] **Alta de Elemento (POST):** Formulario interactivo con validación de campos obligatorios e email único (`/clientes/nuevo`).
 - [x] **Edición de Elemento (PUT/PATCH):** Formulario pre-cargado que actualiza de manera segura el perfil del cliente (`/clientes/editar/:id`).
 - [x] **Eliminación de Elemento (DELETE):** Acción protegida por un **Modal interactivo** de confirmación de borrado definitivo.
 
-###  Requisitos Técnicos de React
+### 💻 Requisitos Técnicos de React
 - [x] **React + TypeScript:** Estructura type-safe libre de errores de compilación (`npm run build` verificado con éxito).
 - [x] **React Router v7:** Gestión robusta de rutas públicas, privadas y comodín.
 - [x] **Uso de Hooks:** `useState`, `useEffect`, `useContext`, `useCallback`, `useMemo` y `useParams`.

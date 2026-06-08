@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import type { Cliente } from '../types';
 import { clientService } from '../services/clientService'; // Capa de persistencia asíncrona
 import { useToast } from '../components/ToastContext'; // Sistema de notificaciones
-import { useAuth } from '../auth/authContext'; // Datos globales del backend activo
 import { ClientCard } from '../components/ClientCard';
 import { ClientStats } from '../components/ClientStats';
 import { Modal } from '../components/Modal';
@@ -176,7 +175,7 @@ export const Dashboard: React.FC = () => {
             {error}
           </p>
           <div className="dashboard-error-tip">
-            💡 Consejo: Si estás en modo <strong>API Real</strong>, asegúrate de haber encendido el backend ejecutando <code>npm run server</code> en la terminal, o cambia al modo <strong>Local</strong> arriba a la derecha.
+            💡 Consejo: Asegúrate de haber encendido el backend ejecutando <code>npm run server</code> en tu terminal de comandos.
           </div>
           <button className="btn btn-primary btn-sm" onClick={fetchClients}>
             <RefreshCw size={14} />

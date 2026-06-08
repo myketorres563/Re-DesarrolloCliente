@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { clientService } from '../services/clientService';
 import { useToast } from '../components/ToastContext';
-import { useAuth } from '../auth/authContext';
 import { ClientForm } from '../components/ClientForm';
 import type { Cliente } from '../types';
 import { ArrowLeft, UserCheck, ShieldAlert } from 'lucide-react';

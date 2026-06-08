@@ -54,73 +54,37 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setState((prev) => ({ ...prev, loading: true })); // Activamos la rueda de carga del botón
     
     try {
-      const isMock = authStorage.getUseMockBackend();
-      // --- CASO A: MODO LOCAL SIMULADO (MOCK) ---
-      if (isMock) {
-        // Simulamos un retraso de red de 800 milisegundos para que se vea más realista
-        await new Promise((resolve) => setTimeout(resolve, 800));
+      // Obtenemos la URL base del backend desde las variables de entorno configuradas
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+      
+      // Hacemos una petición POST asíncrona al endpoint de login del servidor
+      const response = await fetch(`${apiUrl}/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }), // Enviamos las credenciales en formato de texto JSON
+      });
 
-        // Validamos credenciales fijas
-        if (email === 'admin@example.com' && password === 'admin') {
-          const mockUser: User = {
-            id: '1',
-            email: 'admin@example.com',
-            nombre: 'Administrador',
-            role: 'admin',
-          };
-          const mockToken = 'mock-jwt-token-for-admin'; // Token JWT ficticio para la prueba
+      const data = await response.json(); // Esperamos y decodificamos la respuesta del servidor
 
-          // Guardamos físicamente en localStorage para que persista al refrescar (F5)
-          authStorage.setToken(mockToken);
-          authStorage.setUser(mockUser);
-
-          // Actualizamos la memoria activa de React
-          setState({
-            user: mockUser,
-            token: mockToken,
-            isAuthenticated: true,
-            loading: false,
-          });
-          return true;
-        } else {
-          // Si las credenciales no coinciden, disparamos un error controlado
-          throw new Error('Credenciales incorrectas. Usa admin@example.com y admin');
-        }
-      } 
-      // --- CASO B: MODO API REST REAL (CONEXIÓN HTTP AL SERVIDOR NODE) ---
-      else {
-        // Obtenemos la URL base del backend desde las variables de entorno configuradas
-        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-        
-        // Hacemos una petición POST asíncrona al endpoint de login del servidor
-        const response = await fetch(`${apiUrl}/login`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ email, password }), // Enviamos las credenciales en formato de texto JSON
-        });
-
-        const data = await response.json(); // Esperamos y decodificamos la respuesta del servidor
-
-        // Si la respuesta HTTP no es un código exitoso (ej. 401 Unauthorized o 400 Bad Request)
-        if (!response.ok) {
-          throw new Error(data.error || 'Fallo de autenticación en servidor');
-        }
-
-        // Si es exitoso, el servidor nos devuelve el token JWT generado y los datos del usuario
-        authStorage.setToken(data.token);
-        authStorage.setUser(data.user);
-
-        // Guardamos todo en el estado de React
-        setState({
-          user: data.user,
-          token: data.token,
-          isAuthenticated: true,
-          loading: false,
-        });
-        return true;
+      // Si la respuesta HTTP no es un código exitoso (ej. 401 Unauthorized o 400 Bad Request)
+      if (!response.ok) {
+        throw new Error(data.error || 'Fallo de autenticación en servidor');
       }
+
+      // Si es exitoso, el servidor nos devuelve el token JWT generado y los datos del usuario
+      authStorage.setToken(data.token);
+      authStorage.setUser(data.user);
+
+      // Guardamos todo en el estado de React
+      setState({
+        user: data.user,
+        token: data.token,
+        isAuthenticated: true,
+        loading: false,
+      });
+      return true;
     } catch (error: any) {
       // Capturamos cualquier fallo de red o error de credenciales, avisamos al usuario y apagamos la carga
       addToast(error.message || 'Error en el inicio de sesión', 'error');

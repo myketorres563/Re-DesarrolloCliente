@@ -3,7 +3,6 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import type { Cliente } from '../types';
 import { clientService } from '../services/clientService';
 import { useToast } from '../components/ToastContext';
-import { useAuth } from '../auth/authContext';
 import { Button } from '../components/Button';
 import { ArrowLeft, Edit2, Mail, Phone, Building, Calendar, UserCheck, ShieldAlert } from 'lucide-react';
 
