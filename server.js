@@ -123,8 +123,12 @@ const verifyToken = (req, res, next) => {
 app.post('/api/login', (req, res) => {
   const { email, password } = req.body;
 
-  if (!email || !password) {
-    return res.status(400).json({ error: 'Todos los campos son obligatorios.' });
+  if (!email) {
+    return res.status(400).json({ error: 'El correo electrónico es obligatorio.' });
+  }
+
+  if (!password) {
+    return res.status(400).json({ error: 'La contraseña es obligatoria.' });
   }
 
   // Comprobación de credenciales fijas
