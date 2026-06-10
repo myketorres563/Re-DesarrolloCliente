@@ -11,7 +11,7 @@ export const Home: React.FC = () => {
       {/* Hero Section */}
       <div className="home-hero">
         <div className="home-hero-badge">
-          ✨ Práctica Final de Desarrollo Frontend en React
+           Práctica Final de Desarrollo Frontend en React
         </div>
         
         <h1 className="home-hero-title">

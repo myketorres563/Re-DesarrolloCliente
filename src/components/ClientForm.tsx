@@ -102,7 +102,7 @@ export const ClientForm: React.FC<ClientFormProps> = ({
 
   return (
     // Renderizamos el formulario con diseño tarjeta de vidrio (glassmorphism)
-    <form onSubmit={handleSubmit} className="glass-card client-form-container">
+    <form onSubmit={handleSubmit} className="glass-card client-form-container" noValidate>
       <div className="client-form-inner">
         
         {/* Campo Nombre Completo */}

@@ -78,7 +78,7 @@ export const Login: React.FC = () => {
         </div>
 
         {/* Formulario */}
-        <form onSubmit={handleSubmit} className="login-form">
+        <form onSubmit={handleSubmit} className="login-form" noValidate>
           
           <Input
             label="Correo Electrónico"
