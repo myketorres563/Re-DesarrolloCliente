@@ -127,10 +127,7 @@ export const Login: React.FC = () => {
             <KeyRound size={14} />
             Credenciales de Prueba
           </div>
-          <p className="login-demo-desc">
-            Email: <strong>admin@example.com</strong><br />
-            Contraseña: <strong>admin</strong>
-          </p>
+      
           <button
             onClick={handleFillDemo}
             className="login-demo-btn"

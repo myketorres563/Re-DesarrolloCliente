@@ -175,7 +175,7 @@ export const Dashboard: React.FC = () => {
             {error}
           </p>
           <div className="dashboard-error-tip">
-            💡 Consejo: Asegúrate de haber encendido el backend ejecutando <code>npm run server</code> en tu terminal de comandos.
+             Consejo: Asegúrate de haber encendido el backend ejecutando <code>npm run server</code> en tu terminal de comandos.
           </div>
           <button className="btn btn-primary btn-sm" onClick={fetchClients}>
             <RefreshCw size={14} />
